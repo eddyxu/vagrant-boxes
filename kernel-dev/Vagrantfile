@@ -1,0 +1,13 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant::Config.run do |config|
+  config.vm.box = "Ubuntu"
+
+  # Boot with a GUI so you can see the screen. (Default is headless)
+  # Sets to boot w/ GUI for the GRUB menu.
+  config.vm.boot_mode = :gui
+
+  config.vm.customize ["modifyvm", :id, "--memory", 4096, "--cpus", 4]
+  config.vm.provision :shell, :path => "install-dev.sh"
+end
