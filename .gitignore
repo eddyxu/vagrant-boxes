@@ -1,3 +1,5 @@
 id_rsa
 *.swp
 .vagrant
+iso
+*.box

@@ -9,13 +9,14 @@
 #
 # Copyright 2012 (c) Lei Xu <eddyxu@gmail.com>
 
-# Usage: build_vagrant_box NAME TEMPLATE
+# Usage: build_vagrant_box NAME
 function build_vagrant_box {
-	vagrant basebox build $1
+	vagrant basebox build -f -n $1
 	vagrant validate $1
-	vagrant basebox export --force $1
+	vagrant basebox -f export $1
 	vagrant box add --force $1 $1.box
 }
 
-build_vagrant_box 'Ubuntu.LTS'  'ubuntu-12.04.1-server-amd64'
-build_vagrant_box 'Ubuntu' 'ubuntu-12.10-server-amd64'
+for boxdef in `ls definitions`; do
+	build_vagrant_box $boxdef
+done
