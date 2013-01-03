@@ -1,6 +1,12 @@
 #!/bin/bash -
 #
-# Provision-script for Buildbot servers.
+# Provision-script for Buildbot servers. It requires three files under this
+# directory:
+#   - id_rsa  the private key to access git repository
+#   - install-deps.sh  A script to install all dependencies for the project to
+#                      be built.
+#   - master-config.sh Defines the address, username and password of buildbot
+#                      master node.
 #
 # Author Lei Xu <eddyxu@gmail.com>
 
