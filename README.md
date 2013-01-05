@@ -25,10 +25,13 @@ The first step is to install VirtualBox on your machine.
 Then, install Ruby + RVM ([more details](http://seletz.github.com/blog/2012/01/17/creating-vagrant-base-boxes-with-veewee/)):
 
 ```sh
+# Install libxml2 and libxslt on Ubuntu
+$ sudo apt-get install libxml2-dev libxslt1-dev
 # Install rvm
 $ curl -L https://get.rvm.io | bash -s stable --ruby
 $ rvm use 1.9.3
 $ rvm gemset create veewee
+$ gem install veewee
 $ rvm 1.9.3@veewee
 ```
 
