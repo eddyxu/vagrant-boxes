@@ -8,6 +8,7 @@ Vagrant::Config.run do |config|
   # Sets to boot w/ GUI for the GRUB menu.
   config.vm.boot_mode = :gui
 
-  config.vm.customize ["modifyvm", :id, "--memory", 4096, "--cpus", 4]
+  config.vm.customize ["modifyvm", :id, "--memory", 4096, "--cpus", 4,
+			"--natdnshostresolver1", "on"]
   config.vm.provision :shell, :path => "install-dev.sh"
 end

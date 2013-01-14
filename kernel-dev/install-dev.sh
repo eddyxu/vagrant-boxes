@@ -8,8 +8,13 @@
 
 set -e
 
-apt-get install -y git-core vim ctags cscope fakeroot build-essential crash \
+apt-get install -y -qq software-properties-common
+add-apt-repository -y ppa:git-core/ppa
+apt-get update -qq
+apt-get dist-upgrade -y -qq
+apt-get install -y -qq git-core vim ctags cscope fakeroot build-essential crash \
 	kexec-tools makedumpfile kernel-wedge libncurses5 libncurses5-dev \
-	libelf-dev asciidoc binutils-dev tmux
+	libelf-dev asciidoc binutils-dev tmux curl
+apt-get clean -qq
 
 sudo -u vagrant cp /vagrant/id_rsa /home/vagrant/.ssh
