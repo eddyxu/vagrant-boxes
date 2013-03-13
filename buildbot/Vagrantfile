@@ -7,17 +7,16 @@ Vagrant::Config.run do |config|
   # please see the online documentation at vagrantup.com.
 
   config.vm.define :master do |master_config|
-	master_config.vm.box = "ubuntu.LTS"
+	master_config.vm.box = "ubuntu"
 	master_config.vm.box_url = "http://cloud-images.ubuntu.com/quantal/current/quantal-server-cloudimg-vagrant-amd64-disk1.box"
   end
 
   config.vm.define :centos do |centos_config|
 	centos_config.vm.box = "centos"
-    centos_config.vm.box_url = "https://dl.dropbox.com/u/7225008/Vagrant/CentOS-6.3-x86_64-minimal.box"
+	centos_config.vm.box_url = "https://dl.dropbox.com/u/7225008/Vagrant/CentOS-6.3-x86_64-minimal.box"
   end
 
-  # Boot with a GUI so you can see the screen. (Default is headless)
-  # config.vm.boot_mode = :gui
+  config.ssh.private_key_path = "~/.ssh/id_rsa"
 
   # Assign this VM to a host-only network IP, allowing you to access it
   # via the IP. Host-only networks can talk to the host machine as well as
@@ -38,6 +37,7 @@ Vagrant::Config.run do |config|
   # an identifier, the second is the path on the guest to mount the
   # folder, and the third is the path on the host to the actual folder.
   config.vm.share_folder "puppet", "/puppet", "../puppet"
+  config.vm.share_folder "work", "/home/vagrant/work", "."
 
   # Enable provisioning with Puppet stand alone.  Puppet manifests
   # are contained in a directory path relative to this Vagrantfile.
