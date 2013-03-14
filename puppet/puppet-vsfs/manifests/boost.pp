@@ -13,12 +13,12 @@ class boost {
   exec { 'configure_boost':
     cwd     => $cwd,
     command => "${cwd}/bootstrap.sh -with-libraries=filesystem,serialization,system",
-    require => Exec['download_boost']
+    require => [Exec['download_boost'], Class['cpp']]
   }
 
   exec { 'build_boost':
     cwd     => $cwd,
     command => "${cwd}/b2 threading=multi install",
-    require => Exec["configure_boost"]
+    require => [Exec["configure_boost"], Class['cpp']]
   }
 }

@@ -11,8 +11,12 @@
 # Copyright 2013 Lei Xu
 #
 class vsfs {
-  include boost
+  include cpp
   include bdb
+  include boost
+  include leveldb
+  include libevent
+  include thrift
 
 	case $operatingsystem {
 		centos: { $git = "git"
@@ -48,6 +52,11 @@ class vsfs {
 	package { ['fuse', 'fuse-devel']:
 		ensure => present,
 	}
+
+  package { ['protobuf-devel', 'mysql++-devel']:
+    ensure => installed,
+    require => Yumrepo["EPEL"],
+  }
 }
 
 include 'vsfs'

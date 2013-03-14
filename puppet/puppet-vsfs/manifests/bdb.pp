@@ -1,6 +1,7 @@
 # Build Berkeley DB from source
 
 class bdb {
+  include cpp
   $version = "5.1.29"
   $url = "http://download.oracle.com/berkeley-db/db-${version}.tar.gz"
   $cwd = "/usr/local/src/db-${version}/build_unix"
@@ -24,7 +25,7 @@ class bdb {
         cwd       => $cwd,
         timeout   => 0,
         path      => ["/bin", "/usr/bin"],
-        require   => Exec['configure']
+        require   => [Exec['configure'], Class['cpp']]
       }
 
       exec { 'install':
