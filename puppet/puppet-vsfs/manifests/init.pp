@@ -11,9 +11,10 @@
 # Copyright 2013 Lei Xu
 #
 class vsfs {
-  include cpp
   include bdb
   include boost
+  include cpp
+  include google
   include leveldb
   include libevent
   include thrift
@@ -35,7 +36,7 @@ class vsfs {
 	}
 
 	package { [ 'autoconf', 'automake', 'cscope', 'ctags', 'curl', 'make', 'wget',
-			'libtool' ]:
+			'libtool', 'gdb' ]:
 		ensure => present,
 	}
 
@@ -46,12 +47,16 @@ class vsfs {
 
 	package { 'pkgconfig':
 		name => $pkgconfig,
-		ensure => present,
+		ensure => installed,
 	}
 
 	package { ['fuse', 'fuse-devel']:
-		ensure => present,
+		ensure => installed,
 	}
+
+  package { 'libattr-devel':
+    ensure => installed,
+  }
 
   package { ['protobuf-devel', 'mysql++-devel']:
     ensure => installed,
