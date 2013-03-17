@@ -35,8 +35,8 @@ class vsfs {
   }
 
   package { 'git':
-    name => $git,
     ensure => present,
+    name => $git,
   }
 
   package { [ 'autoconf', 'automake', 'cscope', 'ctags', 'curl', 'make', 'wget',
@@ -45,13 +45,13 @@ class vsfs {
   }
 
   package { 'vim':
-    name => $vim,
     ensure => present,
+    name => $vim,
   }
 
   package { 'pkgconfig':
-    name => $pkgconfig,
     ensure => installed,
+    name => $pkgconfig,
   }
 
   package { ['fuse', $libfuse]:
@@ -59,8 +59,8 @@ class vsfs {
   }
 
   package { 'libattr-devel':
-    name   => $libattr,
     ensure => installed,
+    name   => $libattr,
   }
 
   if $operatingsystem == "centos" {
