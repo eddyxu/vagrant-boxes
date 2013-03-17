@@ -8,7 +8,7 @@ Vagrant::Config.run do |config|
 
   config.vm.define :master do |master_config|
 	master_config.vm.box = "ubuntu"
-	master_config.vm.box_url = "http://cloud-images.ubuntu.com/quantal/current/quantal-server-cloudimg-vagrant-amd64-disk1.box"
+#master_config.vm.box_url = "http://cloud-images.ubuntu.com/quantal/current/quantal-server-cloudimg-vagrant-amd64-disk1.box"
   end
 
   config.vm.define :centos do |centos_config|

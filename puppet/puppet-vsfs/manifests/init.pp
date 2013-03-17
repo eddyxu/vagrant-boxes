@@ -19,48 +19,59 @@ class vsfs {
   include libevent
   include thrift
 
-	case $operatingsystem {
-		centos: { $git = "git"
-				  $vim = "vim-enhanced"
-				  $pkgconfig = "pkgconfig"
-				}
-		ubuntu: { $git = "git-core"
-				  $vim = "vim"
-				  $pkgconfig = "pkg-config"
-				}
-	}
+  case $operatingsystem {
+    centos: { $git = 'git'
+          $vim = 'vim-enhanced'
+          $pkgconfig = 'pkgconfig'
+          $libattr = 'libattr-devel'
+          $libfuse = 'libfuse-devel'
+        }
+    ubuntu: { $git = 'git-core'
+          $vim = 'vim'
+          $pkgconfig = 'pkg-config'
+          $libattr = 'libattr1-dev'
+          $libfuse = 'libfuse-dev'
+        }
+  }
 
-	package { 'git':
-		name => $git,
-		ensure => present,
-	}
+  package { 'git':
+    name => $git,
+    ensure => present,
+  }
 
-	package { [ 'autoconf', 'automake', 'cscope', 'ctags', 'curl', 'make', 'wget',
-			'libtool', 'gdb' ]:
-		ensure => present,
-	}
+  package { [ 'autoconf', 'automake', 'cscope', 'ctags', 'curl', 'make', 'wget',
+      'libtool', 'gdb' ]:
+    ensure => present,
+  }
 
-	package { 'vim':
-		name => $vim,
-		ensure => present,
-	}
+  package { 'vim':
+    name => $vim,
+    ensure => present,
+  }
 
-	package { 'pkgconfig':
-		name => $pkgconfig,
-		ensure => installed,
-	}
-
-	package { ['fuse', 'fuse-devel']:
-		ensure => installed,
-	}
-
-  package { 'libattr-devel':
+  package { 'pkgconfig':
+    name => $pkgconfig,
     ensure => installed,
   }
 
-  package { ['protobuf-devel', 'mysql++-devel']:
+  package { ['fuse', $libfuse]:
     ensure => installed,
-    require => Yumrepo["EPEL"],
+  }
+
+  package { 'libattr-devel':
+    name   => $libattr,
+    ensure => installed,
+  }
+
+  if $operatingsystem == "centos" {
+    package { ['protobuf-devel', 'mysql++-devel']:
+      ensure  => installed,
+      require => Yumrepo["EPEL"],
+    }
+  } else {
+    package { ['libprotobuf-dev', 'libmysql++-dev']:
+      ensure => installed,
+    }
   }
 }
 

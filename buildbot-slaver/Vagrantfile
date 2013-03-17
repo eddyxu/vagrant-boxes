@@ -1,9 +1,0 @@
-# -*- mode: ruby -*-
-# vi: set ft=ruby :
-
-Vagrant::Config.run do |config|
-  config.vm.box = "Ubuntu"
-  config.vm.customize ["modifyvm", :id, "--memory", 1024, "--cpus", 2]
-  config.vm.share_folder "builder", "/home/vagrant/builder", ".", :create => true
-  config.vm.provision :shell, :path => "buildbot-slave.sh"
-end
