@@ -18,7 +18,7 @@ class google {
       source   => "https://gflags.googlecode.com/files/gflags-${gflags_version}.amd64.rpm"
     }
   } else {  # Ubuntu
-    package { "libgflags2",
+    package { "libgflags2":
       provider => apt,
       ensure   => installed,
       source   => "https://gflags.googlecode.com/files/libgflags0_${gflags_version}_amd64.deb"
