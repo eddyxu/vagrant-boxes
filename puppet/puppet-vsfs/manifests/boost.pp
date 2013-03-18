@@ -14,14 +14,18 @@ class boost {
 
     exec { 'configure_boost':
       cwd     => $cwd,
-      command => "${cwd}/bootstrap.sh -with-libraries=filesystem,serialization,system",
-      require => [Exec['download_boost'], Class['cpp']]
+      command => "/bin/bash -c '${cwd}/bootstrap.sh -with-libraries=filesystem,serialization,system'",
+      require => [Exec['download_boost'], Class['cpp']],
+      provider => shell,
     }
 
     exec { 'build_boost':
       cwd     => $cwd,
-      command => "${cwd}/b2 threading=multi install",
+      command => "/bin/bash -c '${cwd}/b2 threading=multi install'",
+      logoutput => true,
       require => [Exec["configure_boost"], Class['cpp']]
     }
   }
- }
+}
+
+include boost

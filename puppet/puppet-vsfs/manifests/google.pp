@@ -82,6 +82,6 @@ export LDFLAGS='-L/usr/local/src/gmock-1.6.0/gtest -L/usr/local/src/gmock-1.6.0'
     command => "make && make install",
     cwd     => "/usr/local/src/glog-0.3.3",
     path    => ['/usr/bin', '/bin'],
-    require => Exec['configure_glog'],
+    require => [Exec['configure_glog'], Class['cpp']]
   }
 }

@@ -24,7 +24,7 @@ class vsfs {
           $vim = 'vim-enhanced'
           $pkgconfig = 'pkgconfig'
           $libattr = 'libattr-devel'
-          $libfuse = 'libfuse-devel'
+          $libfuse = 'fuse-devel'
         }
     ubuntu: { $git = 'git-core'
           $vim = 'vim'

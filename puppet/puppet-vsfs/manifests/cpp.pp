@@ -8,14 +8,17 @@ class cpp {
       gpgcheck => 0,
     }
 
-    package { 'devtoolset-1.1-gcc-c++':
+    package { 'devtoolset-1.1':
       ensure  => installed,
       require => Yumrepo['devtools'],
     }
 
     file { '/etc/profile.d/cpp.sh':
       ensure  => present,
-      content => 'export CXX=/opt/centos/devtoolset-1.1/root/usr/bin/g++'
+      content => 'export CXX=/opt/centos/devtoolset-1.1/root/usr/bin/g++
+export CC=/opt/centos/devtoolset-1.1/root/usr/bin/gcc
+export PATH=/opt/centos/devtoolset-1.1/root/usr/bin/:$PATH',
+      require => Package['devtoolset-1.1'],
     }
   } else {
     # Ubuntu
