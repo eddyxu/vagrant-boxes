@@ -1,3 +1,4 @@
+# vim: set ft=ruby
 # Install boost from source
 
 class boost {
@@ -23,7 +24,7 @@ class boost {
       cwd     => $cwd,
       command => "/bin/bash -c '${cwd}/b2 threading=multi install'",
       logoutput => true,
-      require => [Exec["configure_boost"], Class['cpp']]
+      require => Exec["configure_boost"],
     }
   }
 }

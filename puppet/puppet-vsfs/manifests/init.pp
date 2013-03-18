@@ -64,12 +64,12 @@ class vsfs {
   }
 
   if $operatingsystem == "centos" {
-    package { ['protobuf-devel', 'mysql++-devel']:
+    package { ['protobuf-devel', 'mysql++-devel', 'gperftools-devel']:
       ensure  => installed,
       require => Yumrepo["EPEL"],
     }
   } else {
-    package { ['libprotobuf-dev', 'libmysql++-dev']:
+    package { ['libprotobuf-dev', 'libmysql++-dev', 'libgoogle-perftools-dev']:
       ensure => installed,
     }
   }
