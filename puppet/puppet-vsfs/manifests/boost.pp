@@ -22,8 +22,7 @@ class boost {
 
     exec { 'build_boost':
       cwd     => $cwd,
-      command => "/bin/bash -c '${cwd}/b2 threading=multi install'",
-      logoutput => true,
+      command => "/bin/bash -c '${cwd}/b2 threading=multi install'", 
       require => Exec["configure_boost"],
     }
   }
