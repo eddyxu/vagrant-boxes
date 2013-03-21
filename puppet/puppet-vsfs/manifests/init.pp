@@ -20,7 +20,7 @@ class vsfs {
   include thrift
 
   case $operatingsystem {
-    centos: { $git = 'git'
+    centos, Scientific: { $git = 'git'
           $vim = 'vim-enhanced'
           $pkgconfig = 'pkgconfig'
           $libattr = 'libattr-devel'
@@ -63,16 +63,19 @@ class vsfs {
     name   => $libattr,
   }
 
-  if $operatingsystem == "centos" {
-    package { ['protobuf-devel', 'mysql++-devel', 'gperftools-devel']:
-      ensure  => installed,
-      require => Yumrepo["EPEL"],
-    }
-  } else {
+  case $operatingsystem {
+	centos, Scientific: {
+      package { ['protobuf-devel', 'mysql++-devel', 'gperftools-devel']:
+				ensure  => installed,
+			  require => Yumrepo["EPEL"],
+			}
+	  }
+	ubuntu: {
     package { ['libprotobuf-dev', 'libmysql++-dev', 'libgoogle-perftools-dev']:
       ensure => installed,
     }
-  }
+    }
+	}
 }
 
 include 'vsfs'
