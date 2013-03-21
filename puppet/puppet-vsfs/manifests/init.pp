@@ -20,18 +20,20 @@ class vsfs {
   include thrift
 
   case $operatingsystem {
-    centos, Scientific: { $git = 'git'
-          $vim = 'vim-enhanced'
-          $pkgconfig = 'pkgconfig'
-          $libattr = 'libattr-devel'
-          $libfuse = 'fuse-devel'
-        }
-    ubuntu: { $git = 'git-core'
-          $vim = 'vim'
-          $pkgconfig = 'pkg-config'
-          $libattr = 'libattr1-dev'
-          $libfuse = 'libfuse-dev'
-        }
+    centos, Scientific: {
+      $git = 'git'
+      $vim = 'vim-enhanced'
+      $pkgconfig = 'pkgconfig'
+      $libattr = 'libattr-devel'
+      $libfuse = 'fuse-devel'
+    }
+    ubuntu: {
+      $git = 'git-core'
+      $vim = 'vim'
+      $pkgconfig = 'pkg-config'
+      $libattr = 'libattr1-dev'
+      $libfuse = 'libfuse-dev'
+    }
   }
 
   package { 'git':
@@ -64,18 +66,18 @@ class vsfs {
   }
 
   case $operatingsystem {
-	centos, Scientific: {
+    centos, Scientific: {
       package { ['protobuf-devel', 'mysql++-devel', 'gperftools-devel']:
-				ensure  => installed,
-			  require => Yumrepo["EPEL"],
-			}
-	  }
-	ubuntu: {
-    package { ['libprotobuf-dev', 'libmysql++-dev', 'libgoogle-perftools-dev']:
-      ensure => installed,
+        ensure  => installed,
+        require => Yumrepo["EPEL"],
+      }
     }
+    ubuntu: {
+      package { ['libprotobuf-dev', 'libmysql++-dev', 'libgoogle-perftools-dev']:
+        ensure => installed,
+      }
     }
-	}
+  }
 }
 
 include 'vsfs'

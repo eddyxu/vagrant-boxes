@@ -17,6 +17,8 @@ class cpp {
 		ensure  => present,
 		content => 'export CXX=/opt/centos/devtoolset-1.1/root/usr/bin/g++
 export CC=/opt/centos/devtoolset-1.1/root/usr/bin/gcc
+export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig:$PKG_CONFIG_PATH
+export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
 export PATH=/opt/centos/devtoolset-1.1/root/usr/bin/:$PATH',
 		require => Package['devtoolset-1.1'],
 	  }
