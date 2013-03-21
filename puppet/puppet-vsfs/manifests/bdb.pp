@@ -7,7 +7,7 @@ class bdb {
   $cwd = "/usr/local/src/db-${version}/build_unix"
 
   case $operatingsystem {
-    centos: {
+    centos, Scientific: {
       exec { 'download':
         command => "/usr/bin/wget ${url} -O- | tar -xzf -",
         cwd     => "/usr/local/src",

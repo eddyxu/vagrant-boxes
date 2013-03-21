@@ -1,4 +1,4 @@
-class vsfs::libevent {
+class libevent {
   include cpp
 
   case $operatingsystem {
