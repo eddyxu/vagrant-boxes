@@ -25,6 +25,7 @@ class boost {
         cwd     => $cwd,
         command => "/bin/bash -c '${cwd}/b2 threading=multi install'",
         require => Exec["configure_boost"],
+		timeout => 0,
       }
     }
     ubuntu: {
