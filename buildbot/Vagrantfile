@@ -7,13 +7,13 @@ Vagrant.configure("2") do |config|
   # please see the online documentation at vagrantup.com.
 
   config.vm.define :master do |master_config|
-	master_config.vm.box = "ubuntu"
-    master_config.vm.box_url = "http://cloud-images.ubuntu.com/quantal/current/quantal-server-cloudimg-vagrant-amd64-disk1.box"
+	config.vm.box = "ubuntu"
+	config.vm.box_url = "http://cloud-images.ubuntu.com/quantal/current/quantal-server-cloudimg-vagrant-amd64-disk1.box"
   end
 
   config.vm.define :centos do |centos_config|
 	centos_config.vm.box = "centos"
-	centos_config.vm.box_url = "https://dl.dropbox.com/u/7225008/Vagrant/CentOS-6.3-x86_64-minimal.box"
+	centos_config.vm.box_url = "http://developer.nrel.gov/downloads/vagrant-boxes/CentOS-6.4-x86_64-v20130309.box"
   end
 
   # Share an additional folder to the guest VM. The first argument is
@@ -24,11 +24,22 @@ Vagrant.configure("2") do |config|
 
   config.vm.provider :virtualbox do |vb|
 	# Don't boot with headless mode
-     vb.gui = false
+	vb.gui = false
 
-     # Use VBoxManage to customize the VM. For example to change memory:
-     vb.customize ["modifyvm", :id, "--memory", "2048"]
+	# Use VBoxManage to customize the VM. For example to change memory:
+    vb.customize ["modifyvm", :id, "--memory", "2048"]
   end
+
+  config.vm.provider :lxc do |lxc|
+	config.vm.box = 'lxu-quantal'
+	config.vm.box_url = 'http://dl.dropbox.com/u/13510779/lxc-quantal64-2013-03-26.box'
+  end
+
+  config.vm.provider :libvirt do |libvirt|
+	libvirt.driver = "qemu"
+	libvirt.storage_pool_name = "default"
+  end
+
   #
   # View the documentation for the provider you're using for more
   # information on available options.
