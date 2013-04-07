@@ -13,14 +13,8 @@ Vagrant.configure("2") do |config|
 
   config.vm.define :centos do |centos_config|
 	centos_config.vm.box = "centos"
-	centos_config.vm.box_url = "https://dl.dropbox.com/u/7225008/Vagrant/CentOS-6.3-x86_64-minimal.box"
+	centos_config.vm.box_url = "http://developer.nrel.gov/downloads/vagrant-boxes/CentOS-6.4-x86_64-v20130309.box"
   end
-
-  # Share an additional folder to the guest VM. The first argument is
-  # the path on the host to the actual folder. The second argument is
-  # the path on the guest to mount the folder. And the optional third
-  # argument is a set of non-required options.
-  # config.vm.synced_folder "../data", "/vagrant_data"
 
   config.vm.provider :virtualbox do |vb|
 	# Don't boot with headless mode
