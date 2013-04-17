@@ -38,6 +38,16 @@ class vsfs {
     }
   }
 
+  case $operatingsystem {
+	ubuntu: {
+	  exec { 'apt-update':
+	    command => "/usr/bin/apt-get update"
+      }
+
+	  Exec["apt-update"] -> Package <| |>
+	}
+  }
+
   package { 'git':
     ensure => present,
     name => $git,

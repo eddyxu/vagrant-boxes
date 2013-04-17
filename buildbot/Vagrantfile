@@ -2,10 +2,6 @@
 # vi: set ft=ruby :
 
 Vagrant.configure("2") do |config|
-  # All Vagrant configuration is done here. The most common configuration
-  # options are documented and commented below. For a complete reference,
-  # please see the online documentation at vagrantup.com.
-
   config.vm.define :master do |master_config|
 	config.vm.box = "ubuntu"
 	config.vm.box_url = "http://cloud-images.ubuntu.com/quantal/current/quantal-server-cloudimg-vagrant-amd64-disk1.box"
@@ -15,12 +11,6 @@ Vagrant.configure("2") do |config|
 	centos_config.vm.box = "centos"
 	centos_config.vm.box_url = "http://developer.nrel.gov/downloads/vagrant-boxes/CentOS-6.4-x86_64-v20130309.box"
   end
-
-  # Share an additional folder to the guest VM. The first argument is
-  # the path on the host to the actual folder. The second argument is
-  # the path on the guest to mount the folder. And the optional third
-  # argument is a set of non-required options.
-  # config.vm.synced_folder "../data", "/vagrant_data"
 
   config.vm.provider :virtualbox do |vb|
 	# Don't boot with headless mode
@@ -39,10 +29,6 @@ Vagrant.configure("2") do |config|
 	libvirt.driver = "qemu"
 	libvirt.storage_pool_name = "default"
   end
-
-  #
-  # View the documentation for the provider you're using for more
-  # information on available options.
 
   config.vm.provision :puppet do |puppet|
 	  puppet.manifests_path = "../puppet/puppet-vsfs/manifests"
