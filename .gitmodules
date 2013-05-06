@@ -1,3 +1,4 @@
 [submodule "puppet/vsfs"]
 	path = puppet/vsfs
 	url = git@github.com:vsfs/puppet-vsfs.git
+	ignore = dirty
