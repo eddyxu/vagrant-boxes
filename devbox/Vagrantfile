@@ -1,0 +1,24 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+  # All Vagrant configuration is done here. The most common configuration
+  # options are documented and commented below. For a complete reference,
+  # please see the online documentation at vagrantup.com.
+
+  # Every Vagrant virtual environment requires a box to build off of.
+  config.vm.box = "raring"
+
+  config.vm.network :private_network, ip: "192.168.192.122"
+
+  config.vm.provider :lxc do |lxc|
+    config.vm.box = "lxc-raring"
+	config.vm.box_url = "http://dl.dropbox.com/u/13510779/lxc-raring-amd64-2013-04-21.box"
+  end
+
+  config.vm.provision :puppet do |puppet|
+	  puppet.manifests_path = "../puppet/"
+	  puppet.module_path = "../puppet/"
+	  puppet.manifest_file  = "default.pp"
+  end
+end
