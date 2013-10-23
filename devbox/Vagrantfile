@@ -7,25 +7,24 @@ Vagrant.configure("2") do |config|
   # please see the online documentation at vagrantup.com.
 
   config.vm.provider "virtualbox" do |vbox,	override|
-	  override.vm.box = "raring"
-	  override.vm.box_url = "http://cloud-images.ubuntu.com/vagrant/raring/current/raring-server-cloudimg-amd64-vagrant-disk1.box"
+	  override.vm.box = "saucy"
+	  override.vm.box_url = "http://cloud-images.ubuntu.com/vagrant/saucy/current/saucy-server-cloudimg-amd64-vagrant-disk1.box"
 	  vbox.customize ["modifyvm", :id, "--memory", "2048"]
   end
 
-  # Every Vagrant virtual environment requires a box to build off of.
   config.vm.provider "kvm" do |kvm, override|
-	  override.vm.box = "raring"
+	  override.vm.box = "saucy"
 	  override.vm.network :private_network, ip: "192.168.192.122"
   end
 
   config.vm.provider "lxc" do |lxc, override|
-	  override.vm.box = "lxc-raring"
-	  override.vm.box_url = "http://dl.dropbox.com/u/13510779/lxc-raring-amd64-2013-04-21.box"
+	  override.vm.box = "lxc-saucy"
+	  override.vm.box_url = "http://bit.ly/vagrant-lxc-saucy64-2013-10-23"
   end
 
   config.vm.provision :puppet do |puppet|
-	puppet.manifests_path = "../puppet/"
-	puppet.module_path = "../puppet/"
-	puppet.manifest_file  = "default.pp"
+	puppet.manifests_path = "../puppet/vsfs/manifests/"
+	puppet.module_path = "../puppet/vsfs/modules/"
+	puppet.manifest_file  = "devbox.pp"
   end
 end
