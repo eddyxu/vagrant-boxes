@@ -2,6 +2,8 @@
 	"builders": [
 		{
 			"type": "vmware",
+			"guest_os_type": "ubuntu-64",
+			"tools_upload_flavor": "linux",
 			"iso_url": "http://releases.ubuntu.com/saucy/ubuntu-13.10-server-amd64.iso",
 			"iso_checksum": "2bead0f1f451734461ff88f913f4b02ba9e873b15f097a5c231bdb3763ea42e3",
 			"iso_checksum_type": "sha256",
