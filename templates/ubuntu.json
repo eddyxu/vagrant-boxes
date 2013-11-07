@@ -1,6 +1,7 @@
 {
 	"builders": [
 		{
+			"name": "ubuntu.vmware",
 			"type": "vmware",
 			"guest_os_type": "ubuntu-64",
 			"tools_upload_flavor": "linux",
@@ -21,6 +22,20 @@
 			"ssh_wait_timeout": "20m",
 			"ssh_username": "vagrant",
 			"ssh_password": "vagrant"
+		}
+	],
+
+	"provisioners": [
+		{
+			"type": "shell",
+			"execute_command": "echo 'vagrant' | sudo -S -E sh {{.Path}}",
+			"override": {
+				"ubuntu.vmware": {
+					"scripts": [
+						"scripts/vmware.sh"
+						]
+				}
+			}
 		}
 	]
 }
