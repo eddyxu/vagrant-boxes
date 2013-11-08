@@ -48,12 +48,21 @@
       "virtualbox_version_file": ".vbox_version"
     }
   ],
+  "post-processors": [
+    "vagrant"
+  ],
   "provisioners": [
     {
       "execute_command": "echo 'vagrant' | sudo -S -E sh {{.Path}}",
       "override": {
+        "virtualbox": {
+          "scripts": [
+            "scripts/base.sh"
+          ]
+        },
         "vmware": {
           "scripts": [
+            "scripts/base.sh",
             "scripts/vmware.sh"
           ]
         }
