@@ -1,67 +1,65 @@
 {
-	"builders": [
-		{
-			"type": "vmware",
-			"guest_os_type": "ubuntu-64",
-			"tools_upload_flavor": "linux",
-			"iso_url": "http://releases.ubuntu.com/saucy/ubuntu-13.10-server-amd64.iso",
-			"iso_checksum": "2bead0f1f451734461ff88f913f4b02ba9e873b15f097a5c231bdb3763ea42e3",
-			"iso_checksum_type": "sha256",
-			"boot_wait": "5s",
-			"boot_command": [
-				"<esc><esc><enter><wait>",
-				"/install/vmlinuz noapic preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg ",
-				"debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
-				"hostname={{ .Name }} ",
-				"fb=false debconf/frontend=noninteractive ",
-				"keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA keyboard-configuration/variant=USA console-setup/ask_detect=false ",
-				"initrd=/install/initrd.gz -- <enter>"],
-			"http_directory": "http",
-			"shutdown_command": "echo 'vagrant' | sudo -S shutdown -P now",
-			"ssh_wait_timeout": "20m",
-			"ssh_username": "vagrant",
-			"ssh_password": "vagrant"
-		},
-		{
-			"type": "virtualbox",
-			"guest_os_type": "Ubuntu_64",
-			"iso_url": "http://releases.ubuntu.com/saucy/ubuntu-13.10-server-amd64.iso",
-			"iso_checksum": "2bead0f1f451734461ff88f913f4b02ba9e873b15f097a5c231bdb3763ea42e3",
-			"iso_checksum_type": "sha256",
-			"boot_wait": "5s",
-			"boot_command": [
-				"<esc><esc><enter><wait>",
-				"/install/vmlinuz noapic preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg ",
-				"debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
-				"hostname={{ .Name }} ",
-				"fb=false debconf/frontend=noninteractive ",
-				"keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA keyboard-configuration/variant=USA console-setup/ask_detect=false ",
-				"initrd=/install/initrd.gz -- <enter>"
-					],
-			"http_directory": "http",
-			"shutdown_command": "echo 'vagrant' | sudo -S shutdown -P now",
-			"ssh_wait_timeout": "20m",
-			"guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
-			"virtualbox_version_file": ".vbox_version",
-			"ssh_username": "vagrant",
-			"ssh_password": "vagrant"
-		}
-	],
-
-	"provisioners": [
-		{
-			"type": "shell",
-			"execute_command": "echo 'vagrant' | sudo -S -E sh {{.Path}}",
-			"override": {
-				"vmware": {
-					"scripts": [
-						"scripts/vmware.sh"
-						]
-				},
-				"virtualbox": {
-					"script": "/usr/bin/true"
-				}
-			}
-		}
-	]
+  "builders": [
+    {
+      "boot_command": [
+        "<esc><esc><enter><wait>",
+        "/install/vmlinuz noapic preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg ",
+        "debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
+        "hostname={{ .Name }} ",
+        "fb=false debconf/frontend=noninteractive ",
+        "keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA keyboard-configuration/variant=USA console-setup/ask_detect=false ",
+        "initrd=/install/initrd.gz -- <enter>"
+      ],
+      "boot_wait": "5s",
+      "guest_os_type": "ubuntu-64",
+      "http_directory": "http",
+      "iso_checksum": "2bead0f1f451734461ff88f913f4b02ba9e873b15f097a5c231bdb3763ea42e3",
+      "iso_checksum_type": "sha256",
+      "iso_url": "http://releases.ubuntu.com/saucy/ubuntu-13.10-server-amd64.iso",
+      "shutdown_command": "echo 'vagrant' | sudo -S shutdown -P now",
+      "ssh_password": "vagrant",
+      "ssh_username": "vagrant",
+      "ssh_wait_timeout": "20m",
+      "tools_upload_flavor": "linux",
+      "type": "vmware"
+    },
+    {
+      "boot_command": [
+        "<esc><esc><enter><wait>",
+        "/install/vmlinuz noapic preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg ",
+        "debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
+        "hostname={{ .Name }} ",
+        "fb=false debconf/frontend=noninteractive ",
+        "keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA keyboard-configuration/variant=USA console-setup/ask_detect=false ",
+        "initrd=/install/initrd.gz -- <enter>"
+      ],
+      "boot_wait": "5s",
+      "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
+      "guest_os_type": "Ubuntu_64",
+      "http_directory": "http",
+      "iso_checksum": "2bead0f1f451734461ff88f913f4b02ba9e873b15f097a5c231bdb3763ea42e3",
+      "iso_checksum_type": "sha256",
+      "iso_url": "http://releases.ubuntu.com/saucy/ubuntu-13.10-server-amd64.iso",
+      "shutdown_command": "echo 'vagrant' | sudo -S shutdown -P now",
+      "ssh_password": "vagrant",
+      "ssh_username": "vagrant",
+      "ssh_wait_timeout": "20m",
+      "type": "virtualbox",
+      "virtualbox_version_file": ".vbox_version"
+    }
+  ],
+  "provisioners": [
+    {
+      "execute_command": "echo 'vagrant' | sudo -S -E sh {{.Path}}",
+      "override": {
+        "vmware": {
+          "scripts": [
+            "scripts/vmware.sh"
+          ]
+        }
+      },
+      "type": "shell"
+    }
+  ]
 }
+
