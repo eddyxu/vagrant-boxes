@@ -1,6 +1,7 @@
 {
   "builders": [
     {
+      "type": "vmware",
       "boot_command": [
         "<esc><esc><enter><wait>",
         "/install/vmlinuz noapic preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg ",
@@ -20,10 +21,10 @@
       "ssh_password": "vagrant",
       "ssh_username": "vagrant",
       "ssh_wait_timeout": "20m",
-      "tools_upload_flavor": "linux",
-      "type": "vmware"
+      "tools_upload_flavor": "linux"
     },
     {
+      "type": "virtualbox",
       "boot_command": [
         "<esc><esc><enter><wait>",
         "/install/vmlinuz noapic preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg ",
@@ -44,9 +45,15 @@
       "ssh_password": "vagrant",
       "ssh_username": "vagrant",
       "ssh_wait_timeout": "20m",
-      "type": "virtualbox",
       "virtualbox_version_file": ".vbox_version"
-    }
+    },
+	{
+		"type": "digitalocean",
+		"image_id": "961965",
+		"size_id": 63,
+		"client_id": "",
+		"api_key": ""
+	}
   ],
   "post-processors": [
 	{ "type": "vagrant",
