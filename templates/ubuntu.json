@@ -80,7 +80,7 @@
 		"net_device": "virtio-net",
 		"disk_interface": "virtio",
 		"boot_command": [
-			"<esc><esc><enter><wait>",
+			"<esc><esc><enter><wait10>",
 			"/install/vmlinuz noapic preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg ",
 			"debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
 			"hostname={{ .Name }} ",
