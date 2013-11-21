@@ -11,10 +11,6 @@ Vagrant.configure("2") do |config|
     slave.vm.box = 'raring'
   end
 
-  config.vm.provider :lxc do |lxc|
-	config.vm.box_url = "http://dl.dropbox.com/u/13510779/lxc-raring-amd64-2013-05-08.box"
-  end
-
   config.vm.define :centos do |centos_config|
 	centos_config.vm.box = "centos"
 	centos_config.vm.box_url = "http://developer.nrel.gov/downloads/vagrant-boxes/CentOS-6.4-x86_64-v20130309.box"

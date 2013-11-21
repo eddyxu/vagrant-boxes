@@ -1,4 +1,11 @@
 {
+  "variables": {
+	  "iso_url": "http://releases.ubuntu.com/saucy/ubuntu-13.10-server-amd64.iso",
+	  "iso_checksum": "2bead0f1f451734461ff88f913f4b02ba9e873b15f097a5c231bdb3763ea42e3",
+	  "iso_checksum_type": "sha256",
+	  "do_client_id": "",
+	  "do_api_key": ""
+  },
   "builders": [
     {
       "type": "vmware",
@@ -14,9 +21,9 @@
       "boot_wait": "5s",
       "guest_os_type": "ubuntu-64",
       "http_directory": "http",
-      "iso_checksum": "2bead0f1f451734461ff88f913f4b02ba9e873b15f097a5c231bdb3763ea42e3",
-      "iso_checksum_type": "sha256",
-      "iso_url": "http://releases.ubuntu.com/saucy/ubuntu-13.10-server-amd64.iso",
+      "iso_checksum": "{{user `iso_checksum`}}",
+      "iso_checksum_type": "{{user `iso_checksum_type`}}",
+      "iso_url": "{{user `iso_url`}}",
       "shutdown_command": "echo 'vagrant' | sudo -S shutdown -P now",
       "ssh_password": "vagrant",
       "ssh_username": "vagrant",
@@ -51,8 +58,8 @@
 		"type": "digitalocean",
 		"image_id": "961965",
 		"size_id": 63,
-		"client_id": "",
-		"api_key": ""
+		"client_id": "{{user `do_client_id`}}",
+		"api_key": "{{user `do_api_key`}}"
 	}
   ],
   "post-processors": [
