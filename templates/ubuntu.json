@@ -9,7 +9,7 @@
   "builders": [
     {
       "type": "vmware",
-      "boot_command": [
+	  "boot_command": [
         "<esc><esc><enter><wait>",
         "/install/vmlinuz noapic preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg ",
         "debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
@@ -32,7 +32,7 @@
     },
     {
       "type": "virtualbox",
-      "boot_command": [
+	  "boot_command": [
         "<esc><esc><enter><wait>",
         "/install/vmlinuz noapic preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg ",
         "debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
@@ -51,9 +51,44 @@
       "shutdown_command": "echo 'vagrant' | sudo -S shutdown -P now",
       "ssh_password": "vagrant",
       "ssh_username": "vagrant",
-      "ssh_wait_timeout": "20m",
+	  "ssh_wait_timeout": "20m",
       "virtualbox_version_file": ".vbox_version"
     },
+	{
+		"name": "kvm",
+		"type": "qemu",
+		"iso_url": "{{user `iso_url`}}",
+		"iso_checksum": "{{user `iso_checksum`}}",
+		"iso_checksum_type": "sha256",
+		"output_directory": "output_kvm_ubuntu",
+		"ssh_wait_timeout": "20m",
+		"shutdown_command": "shutdown -P now",
+		"disk_size": 40000,
+		"format": "qcow2",
+		"headless": false,
+		"accelerator": "kvm",
+		"http_directory": "http",
+		"http_port_min": 10082,
+		"http_port_max": 10089,
+		"ssh_host_port_min": 2222,
+		"ssh_host_port_max": 2229,
+		"ssh_username": "vagrant",
+		"ssh_password": "vagrant",
+		"ssh_port": 22,
+		"ssh_wait_timeout": "90m",
+		"vm_name": "ubuntu",
+		"net_device": "virtio-net",
+		"disk_interface": "virtio",
+		"boot_command": [
+			"<esc><esc><enter><wait>",
+			"/install/vmlinuz noapic preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg ",
+			"debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
+			"hostname={{ .Name }} ",
+			"fb=false debconf/frontend=noninteractive ",
+			"keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA keyboard-configuration/variant=USA console-setup/ask_detect=false ",
+			"initrd=/install/initrd.gz -- <enter>"
+		]
+	},
 	{
 		"type": "digitalocean",
 		"image_id": "961965",
@@ -80,7 +115,15 @@
             "scripts/base.sh",
             "scripts/vmware.sh"
           ]
-        }
+        },
+		"kvm": {
+			"scripts": [
+				"scripts/base.sh"
+			]
+		},
+		"digitalocean": {
+			"inline": ["wget https://raw.github.com/vsfs/vsfs-devtools/master/install-devbox.sh -O- | sudo sh"]
+		}
       },
       "type": "shell"
     }
