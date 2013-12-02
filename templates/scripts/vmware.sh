@@ -1,26 +1,19 @@
-#!/bin/sh
+# Bail if we are not running inside VMWare.
+[ `facter virtual` == "vmware" ] || {
+  exit 0
+}
 
-# Mount setup file
+# Install the VMWare Tools from a linux ISO.
+
+#wget http://192.168.0.185/linux.iso -P /tmp
 mkdir -p /mnt/vmware
 mount -o loop /home/vagrant/linux.iso /mnt/vmware
 
-# Extract setup setup
 cd /tmp
 tar xzf /mnt/vmware/VMwareTools-*.tar.gz
 
-# Unmount setup file
 umount /mnt/vmware
-rm -f /home/vagrant/linux.iso
+rm -fr /home/vagrant/linux.iso
 
-# Apply patch
-#cd /tmp/vmware-tools-distrib/
-#wget --no-check-certificate https://raw.github.com/ebdevrepo/bin/master/vmware9.compat_mm.patch
-#wget --no-check-certificate https://raw.github.com/ebdevrepo/bin/master/vmware_hgfs_fix.sh
-#chmod +x vmware_hgfs_fix.sh
-#./vmware_hgfs_fix.sh
-
-# Execute setup
-/tmp/vmware-tools-distrib/vmware-install.pl --default
-
-# Clean
+/tmp/vmware-tools-distrib/vmware-install.pl -d
 rm -fr /tmp/vmware-tools-distrib
