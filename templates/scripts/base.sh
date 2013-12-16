@@ -2,7 +2,7 @@
 
 # Update the box
 apt-get -y update
-apt-get -y dist-upgrade
+apt-get -yy dist-upgrade
 
 # Set up sudo
 echo 'vagrant ALL=NOPASSWD:ALL' > /etc/sudoers.d/vagrant

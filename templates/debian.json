@@ -1,4 +1,9 @@
 {
+  "variables": {
+	  "iso_url": "http://cdimage.debian.org/debian-cd/7.3.0/amd64/iso-cd/debian-7.3.0-amd64-netinst.iso",
+	  "iso_checksum": "72473e8a5e65b61acc7efde90d9f71d1",
+	  "iso_checksum_type": "md5"
+  },
   "builders": [
     {
       "boot_command": [
@@ -18,13 +23,13 @@
         "keyboard-configuration/xkb-keymap=us <wait>",
         "<enter><wait>"
       ],
-      "disk_size": 10140,
+      "disk_size": 20280,
       "guest_os_type": "Debian_64",
       "headless": false,
       "http_directory": "http",
-      "iso_checksum": "b86774fe4de88be6378ba3d71b8029bd",
-      "iso_checksum_type": "md5",
-      "iso_url": "http://cdimage.debian.org/debian-cd/7.2.0/amd64/iso-cd/debian-7.2.0-amd64-netinst.iso",
+	  "iso_checksum": "{{user `iso_checksum`}}",
+	  "iso_checksum_type": "{{user `iso_checksum_type`}}",
+	  "iso_url": "{{user `iso_url`}}",
       "shutdown_command": "echo 'halt -p' > shutdown.sh; echo 'vagrant'|sudo -S sh 'shutdown.sh'",
       "ssh_password": "vagrant",
       "ssh_port": 22,
@@ -66,12 +71,12 @@
 		"<Wait><Wait><Wait><Wait><wait>",
 		"<enter><wait>"
       ],
-      "disk_size": 10140,
-      "guest_os_type": "debian5-64",
+      "disk_size": 20280,
+      "guest_os_type": "debian7-64",
       "http_directory": "http",
-      "iso_checksum": "b86774fe4de88be6378ba3d71b8029bd",
-      "iso_checksum_type": "md5",
-      "iso_url": "http://cdimage.debian.org/debian-cd/7.2.0/amd64/iso-cd/debian-7.2.0-amd64-netinst.iso",
+	  "iso_checksum": "{{user `iso_checksum`}}",
+	  "iso_checksum_type": "{{user `iso_checksum_type`}}",
+	  "iso_url": "{{user `iso_url`}}",
       "shutdown_command": "echo 'halt -p' > shutdown.sh; echo 'vagrant'|sudo -S sh 'shutdown.sh'",
       "ssh_password": "vagrant",
       "ssh_port": 22,
@@ -81,7 +86,7 @@
       "type": "vmware",
       "vmx_data": {
         "cpuid.coresPerSocket": "1",
-        "memsize": "256",
+        "memsize": "1024",
         "numvcpus": "1"
       }
     }

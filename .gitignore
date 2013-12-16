@@ -3,3 +3,4 @@ id_rsa
 .vagrant
 iso
 *.box
+.DS_Store
