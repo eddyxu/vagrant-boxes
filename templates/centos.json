@@ -1,0 +1,91 @@
+{
+  "provisioners": [
+    {
+      "execute_command": "echo 'vagrant'|sudo -S sh '{{.Path}}'"
+      "type": "shell",
+	  "override": {
+        "virtualbox": {
+		  "scripts": [
+			  "scripts/virtualbox.sh",
+			  "scripts/vagrant.sh",
+			  "scripts/cleanup.sh",
+			  "scripts/zerodisk.sh"
+			]
+		},
+		"vmware": {
+			"scripts": [
+				"scripts/vmware.sh",
+				"scripts/vagrant.sh",
+				"scripts/cleanup.sh",
+				"scripts/zerodisk.sh"
+			]
+        }
+      }
+    }
+  ],
+  "builders": [
+    {
+      "type": "virtualbox",
+      "boot_command": [
+        "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg<enter><wait>"
+      ],
+      "boot_wait": "10s",
+      "disk_size": 20480,
+      "guest_os_type": "RedHat_64",
+      "http_directory": "http",
+      "iso_checksum": "939fd1d87c11ffe7795324438b85adfb",
+      "iso_checksum_type": "md5",
+      "iso_url": "http://centos.mirror.facebook.net/6.5/isos/x86_64/CentOS-6.5-x86_64-netinstall.iso",
+      "ssh_username": "vagrant",
+      "ssh_password": "vagrant",
+      "ssh_port": 22,
+      "ssh_wait_timeout": "10000s",
+      "shutdown_command": "echo '/sbin/halt -h -p' > shutdown.sh; echo 'vagrant'|sudo -S sh 'shutdown.sh'",
+      "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
+      "virtualbox_version_file": ".vbox_version",
+      "vboxmanage": [
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--memory",
+          "480"
+        ],
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--cpus",
+          "1"
+        ]
+      ]
+    },
+    {
+      "type": "vmware",
+      "boot_command": [
+        "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg<enter><wait>"
+      ],
+      "boot_wait": "10s",
+      "disk_size": 20480,
+      "guest_os_type": "rhel6-64",
+      "http_directory": "http",
+	  "iso_checksum": "939fd1d87c11ffe7795324438b85adfb",
+      "iso_checksum_type": "md5",
+	  "iso_url": "http://centos.mirror.facebook.net/6.5/isos/x86_64/CentOS-6.5-x86_64-netinstall.iso",
+      "skip_compaction": true,
+      "ssh_username": "vagrant",
+      "ssh_password": "vagrant",
+      "ssh_port": 22,
+      "ssh_wait_timeout": "10000s",
+      "shutdown_command": "echo '/sbin/halt -h -p' > shutdown.sh; echo 'vagrant'|sudo -S sh 'shutdown.sh'",
+      "tools_upload_flavor": "linux",
+      "vmx_data": {
+        "memsize": "480",
+        "numvcpus": "1",
+        "cpuid.coresPerSocket": "1"
+      }
+    }
+  ],
+  "post-processors": [
+	{ "type": "vagrant",
+	  "only": ["virtualbox"] }
+  ]
+}
