@@ -8,25 +8,23 @@ sudo yum install python-devel
 SCRIPT
 
 Vagrant.configure("2") do |config|
-  config.vbguest.auto_update = true
   config.vm.box = "ubuntu"
   config.vm.box_url = "http://cloud-images.ubuntu.com/vagrant/saucy/current/saucy-server-cloudimg-amd64-vagrant-disk1.box"
   config.ssh.forward_agent = true
 
-  config.vm.provider :virtualbox do |vb|
+  config.vm.provider :virtualbox do |vb, override|
 	  # Use VBoxManage to customize the VM. For example to change memory:
 	  vb.customize ["modifyvm", :id, "--memory", "2048"]
+	  override.vbguest.auto_update = true
   end
 
-  config.vm.provider :digitalocean do |provider, override|
+  config.vm.provider :digital_ocean do |provider, override|
 	  override.ssh.private_key_path = '~/.ssh/id_rsa'
 	  override.vm.box = 'digital_ocean'
 	  override.vm.box_url = "https://github.com/smdahlen/vagrant-digitalocean/raw/master/box/digital_ocean.box"
+	  provider.image = 'Ubuntu 13.10 x64'
   end
 
-  config.vm.provision :puppet do |puppet|
-	  puppet.manifests_path = "../puppet/vsfs/manifests"
-	  puppet.module_path = "../puppet/vsfs/modules"
-	  puppet.manifest_file  = "devbox.pp"
-  end
+  # Install puppet before provision
+  config.vm.provision "shell", path: "https://raw.github.com/vsfs/vsfs-devtools/master/install-devbox.sh"
 end
