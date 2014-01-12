@@ -1,20 +1,14 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-$inline_script = <<SCRIPT
-wget https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py -O - | sudo python
-sudo easy_install pip
-sudo yum install python-devel
-SCRIPT
-
 Vagrant.configure("2") do |config|
-  config.vm.box = "ubuntu"
-  config.vm.box_url = "http://cloud-images.ubuntu.com/vagrant/saucy/current/saucy-server-cloudimg-amd64-vagrant-disk1.box"
   config.ssh.forward_agent = true
 
   config.vm.provider :virtualbox do |vb, override|
 	  # Use VBoxManage to customize the VM. For example to change memory:
 	  vb.customize ["modifyvm", :id, "--memory", "2048"]
+	  override.vm.box = "ubuntu"
+	  override.vm.box_url = "http://cloud-images.ubuntu.com/vagrant/saucy/current/saucy-server-cloudimg-amd64-vagrant-disk1.box"
 	  override.vbguest.auto_update = true
   end
 
